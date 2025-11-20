@@ -19,13 +19,13 @@ def leer_sd_windows():
                 pass
     
     if not available_drives:
-        print("❌ No se encontraron unidades")
+        print("No se encontraron unidades")
         return
     
     letra = input("\n Ingresa la letra de la SD (ejemplo: E): ").strip().upper()
     
     if letra not in available_drives:
-        print(f"❌ Unidad {letra}: no disponible")
+        print(f"Unidad {letra}: no disponible")
         return
     
     dispositivo = f"\\\\.\\{letra}:"
@@ -72,11 +72,11 @@ def leer_sd_windows():
                 else:
                     if data[:100].count(0xFF) > 90:
                         if i == 0:
-                            print(f"⚠️ Sector {sector} está vacío (0xFF)")
+                            print(f"Sector {sector} está vacío (0xFF)")
                             print("   ¿El PIC realmente guardó datos?")
                         break
                     elif i > 0:
-                        print(f"\n✓ Fin de datos en sector {sector-1}")
+                        print(f"\nFin de datos en sector {sector-1}")
                         break
         
         print("=" * 60)
@@ -100,7 +100,7 @@ def leer_sd_windows():
         print("\nO usa el método alternativo:")
         leer_archivos_sd(letra)
     except Exception as e:
-        print(f"❌ Error: {e}")
+        print(f"Error: {e}")
         print("\nIntentando método alternativo...")
         leer_archivos_sd(letra)
 
@@ -110,7 +110,7 @@ def leer_archivos_sd(letra):
     import os
     
     drive = f"{letra}:\\"
-    print(f"\n📁 Buscando archivos en {drive}")
+    print(f"\nBuscando archivos en {drive}")
     
     todas_lineas = []
     
@@ -153,7 +153,7 @@ def leer_archivos_sd(letra):
             print("\n No se encontraron datos para guardar")
             
     except Exception as e:
-        print(f"❌ Error: {e}")
+        print(f"Error: {e}")
 
 
 def leer_imagen_sd(archivo):
@@ -211,7 +211,7 @@ def leer_imagen_sd(archivo):
             print("\n No se encontraron datos para guardar")
             
     except Exception as e:
-        print(f"❌ Error: {e}")
+        print(f"Error: {e}")
 
 
 if __name__ == "__main__":
@@ -230,7 +230,7 @@ if __name__ == "__main__":
         if os.path.exists(archivo):
             leer_imagen_sd(archivo)
         else:
-            print(f"❌ Archivo no encontrado: {archivo}")
+            print(f"Archivo no encontrado: {archivo}")
     else:
         # Modo interactivo (Windows)
         if os.name == 'nt':
@@ -242,4 +242,5 @@ if __name__ == "__main__":
             print("   sudo dd if=/dev/sdX of=sd_image.bin bs=512 count=2000")
             print("   python leer_sd_directo.py sd_image.bin")
     
+
     input("\n\nPresiona Enter para salir...")
